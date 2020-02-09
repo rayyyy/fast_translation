@@ -4,23 +4,12 @@ let localshortcut = require('electron-localshortcut');
 
 function setupMenu(params) {
   let appIcon = new Tray(__dirname + '/images/icon.png');
-  // メニューアイコン設定
-  // コンテキストメニュー追加
   let contextMenu = Menu.buildFromTemplate([
-    { label: '選択メニュー1', type: 'radio' },
-    { label: '選択メニュー2', type: 'radio' },
-    { type: 'separator' },
-    {
-      label: 'サブメニュー', submenu: [
-        { label: 'サブメニュー1' },
-        { label: 'サブメニュー2' }
-      ]
-    },
     { label: '終了', accelerator: 'Command+Q', click: function () { app.quit() } }
   ]);
   appIcon.setContextMenu(contextMenu);
   // アイコンにマウスオーバーした時の説明
-  appIcon.setToolTip('This is sample.');
+  appIcon.setToolTip('Fast Translation');
 }
 
 // mainWindow変数の初期化
@@ -40,7 +29,9 @@ app.on('ready', function () {
     minimizable: false,
     show: false,
     movable: false,
-    opacity: 0.9
+    opacity: 0.9,
+    closable: false,
+    titleBarStyle: 'hidden'
   })
   mainWindow.loadURL('file://' + __dirname + '/index.html')
   app.dock.hide();
@@ -60,11 +51,12 @@ app.on('ready', function () {
   });
 
   globalShortcut.register('Command+H', function () {
-    if (mainWindow.isFocused()) {
+    if (toggle) {
       mainWindow.hide()
     } else {
       mainWindow.show()
     }
+    toggle = !toggle
   })
 })
 
