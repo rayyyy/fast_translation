@@ -10,12 +10,18 @@ let mainWindow = null
 
 app.on('ready', function () {
   mainWindow = new BrowserWindow({
-    width: 600,
-    maxWidth: 600,
-    height: 500,
-    maxHeight: 500,
+    y: 0,
+    x: 9999,
+    minWidth: 400,
+    maxWidth: 400,
+    minHeight: 300,
+    maxHeight: 300,
     maximizable: false,
-    show: false
+    minimizable: false,
+    show: false,
+    alwaysOnTop: true,
+    movable: false,
+    opacity: 0
   })
   mainWindow.loadURL('file://' + __dirname + '/index.html')
 
