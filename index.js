@@ -10,11 +10,18 @@ let mainWindow = null
 
 app.on('ready', function () {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    maxWidth: 600,
+    height: 500,
+    maxHeight: 500,
+    maximizable: false,
     show: false
   })
   mainWindow.loadURL('file://' + __dirname + '/index.html')
+
+  mainWindow.on('blur', function () {
+    mainWindow.hide()
+  })
 
   localshortcut.register(mainWindow, 'Command+R', function () {
     // do nothing
@@ -23,16 +30,8 @@ app.on('ready', function () {
     // do nothing
   });
 
-  // mainWindow.on('closed', function () {
-  //   mainWindow = null;
-  // });
-
   globalShortcut.register('Command+H', function () {
     mainWindow.show()
   })
+})
 
-  mainWindow.webContents.on('did-finish-load', function () {
-    mainWindow.show();
-    mainWindow.focus();
-  });
-});
